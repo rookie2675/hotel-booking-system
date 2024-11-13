@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: hotel-booking-system
+
+    profiles:
+        active: dev
