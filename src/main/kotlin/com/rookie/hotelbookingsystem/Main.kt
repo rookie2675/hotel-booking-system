@@ -10,7 +10,7 @@ class Main : SpringBootServletInitializer() {
 
     override fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
         return application.sources(Main::class.java)
-    }   
+    }
 }
 
 fun main(args: Array<String>) {
