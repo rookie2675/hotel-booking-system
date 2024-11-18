@@ -2,5 +2,21 @@ spring:
     application:
         name: hotel-booking-system
 
+    datasource:
+        username: sa
+        password: sa
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+
+    h2:
+        console:
+            enabled: true
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: false
+        open-in-view: false
+
     profiles:
         active: dev
