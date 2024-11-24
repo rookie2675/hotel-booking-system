@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany
 class RoomEntity(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long,
         @Enumerated(EnumType.STRING) val type: RoomType,
-        val number: Int,
+        val number: String,
         @OneToMany(mappedBy = "room", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        var bookins: List<BookingEntity> = mutableListOf()
+        var bookings: List<BookingEntity> = mutableListOf()
 ) {}

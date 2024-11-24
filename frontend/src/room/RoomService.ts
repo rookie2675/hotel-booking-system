@@ -1,23 +1,31 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { BookingModel } from "../booking/BookingModel";
-import { RoomModel } from "./RoomModel";
-import { RoomType } from "./RoomType";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
+import { RoomModel } from './RoomModel';
+import { ApiService } from '../services/ApiService';
 
 @Injectable({
-    providedIn: "root",
+    providedIn: 'root',
 })
 export class RoomService {
-    private url = "http://localhost:8080";
+    private path: string;
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient,
+        private apiService: ApiService
+    ) {
+        this.path = '/room';
+    }
 
-    getRooms(): Observable<RoomModel[]> {
-        return of([
-            new RoomModel(1, RoomType.SINGLE, "101", []),
-            new RoomModel(1, RoomType.DOUBLE, "102", []),
-        ]);
-        //return this.httpClient.get(this.url);
+    getAll(): Observable<RoomModel[]> {
+        return this.httpClient
+            .get<RoomModel[]>(this.apiService.getUrl() + this.path + '/get-all')
+            .pipe(
+                map((response: RoomModel[]) => {
+                    return response.map((room) => ({
+                        ...room,
+                    }));
+                })
+            );
     }
 }

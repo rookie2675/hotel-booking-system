@@ -21,9 +21,9 @@ class DataInitializer(
     @PostConstruct
     fun init() {
 
-        val room1 = RoomEntity(1L, RoomType.SINGLE, 1)
-        val room2 = RoomEntity(2L, RoomType.DOUBLE, 2)
-        val room3 = RoomEntity(3L, RoomType.SUITE, 3)
+        val room1 = RoomEntity(1L, RoomType.SINGLE, "101")
+        val room2 = RoomEntity(2L, RoomType.DOUBLE, "102")
+        val room3 = RoomEntity(3L, RoomType.SUITE, "103")
 
         if (roomRepository.count() == 0L) {
             roomRepository.saveAll(listOf(room1, room2, room3))

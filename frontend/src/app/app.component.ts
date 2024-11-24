@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.roomService
-            .getRooms()
+            .getAll()
             .pipe(
                 tap((response) => {
                     console.log("Data fetched successfully:", response);
