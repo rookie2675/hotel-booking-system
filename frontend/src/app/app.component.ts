@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { catchError, tap } from "rxjs";
-import { RoomService } from "../room/RoomService";
-import { RoomModel } from "../room/RoomModel";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { catchError, of, tap } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { RoomModel } from './models/RoomModel';
+import { RoomService } from '../services/RoomService';
+import { RoomCardComponent } from './room-card/room-card.component';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrl: "./app.component.css",
-    imports: [CommonModule],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [CommonModule, RoomCardComponent],
 })
 export class AppComponent implements OnInit {
     rooms: RoomModel[];
@@ -17,20 +18,21 @@ export class AppComponent implements OnInit {
         this.rooms = [];
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.roomService
             .getAll()
             .pipe(
-                tap((response) => {
-                    console.log("Data fetched successfully:", response);
+                tap((response: RoomModel[]) => {
+                    this.rooms = response;
                 }),
-                catchError((error) => {
-                    console.error("Error fetching data:", error);
-                    return [];
-                }),
+                catchError((error: Error) => {
+                    console.error(
+                        'Error fetching list of rooms from server:',
+                        error.message
+                    );
+                    return of([]);
+                })
             )
-            .subscribe((response) => {
-                this.rooms = response;
-            });
+            .subscribe();
     }
 }
